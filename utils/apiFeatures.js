@@ -19,7 +19,9 @@ class ApiFeatures {
   }
 
   sort() {
-    if (this.queryStr) {
+    if (!this.queryStr) {
+      // console.log("-------------------------------------------------");
+      // console.log(this.queryStr);
       const sortBy = this.queryStr.sort.split(",").join(" ");
       this.query = this.query.sort(sortBy);
     } else {
@@ -40,17 +42,19 @@ class ApiFeatures {
   }
 
   pagination() {
-    const page = this.queryStr.page * 1 || 1;
-    const limit = this.queryStr.limit * 1 || 10;
-    const skip = (page - 1) * limit;
-    this.query = this.query.skip(skip).limit(limit);
+    if (!this.page || !this.limit) {
+      const page = this.queryStr.page * 1 || 1;
+      const limit = this.queryStr.limit * 1 || 10;
+      const skip = (page - 1) * limit;
+      this.query = this.query.skip(skip).limit(limit);
 
-    // if (this.queryStr.page) {
-    //   const movieCount = await Movie.countDocuments();
-    //   if (skip > movieCount) {
-    //     throw new Error("This page is not found");
-    //   }
-    // }
+      // if (this.queryStr.page) {
+      //   const movieCount = await Movie.countDocuments();
+      //   if (skip > movieCount) {
+      //     throw new Error("This page is not found");
+      //   }
+      // }
+    }
     return this;
   }
 }
