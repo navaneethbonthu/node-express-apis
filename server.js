@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
-process.on("unCaughtException", (err) => {
+process.on("uncaughtException", (err) => {
   console.log(err);
   console.log("Un Caught Exception Occured :  Shutting down....");
   server.close(() => {
@@ -26,7 +26,7 @@ mongoose
 // });
 
 const app = require("./app");
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
   console.log("server stared");

@@ -1,5 +1,6 @@
 const express = require("express");
 const moviesRouter = require("./routes/moviesRoutes");
+const authRouter = require("./routes/authRoute");
 const CustomError = require("./utils/customError");
 const gobalErrorHandler = require("./controllers/errorController");
 let app = express();
@@ -7,6 +8,7 @@ let app = express();
 app.use(express.json());
 app.use(express.static("./public/"));
 app.use("/api/v1/movies", moviesRouter);
+app.use("/api/v1/users", authRouter);
 
 app.use("*", (req, res, next) => {
   //   const err = new Error(`Can't find ${req.originalUrl} on the server!`);
