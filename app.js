@@ -12,12 +12,10 @@ app.use("*", (req, res, next) => {
   //   const err = new Error(`Can't find ${req.originalUrl} on the server!`);
   //   err.statusCode = 404;
   //   err.status = "fail";
-
   const err = new CustomError(
     `Can't find ${req.originalUrl} on the server!`,
     404
   );
-
   next(err);
 });
 
