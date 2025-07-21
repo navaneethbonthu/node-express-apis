@@ -66,9 +66,13 @@ exports.updateMovieById = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.deleteMovieById = asyncErrorHandler(async (req, res, next) => {
+  console.log("called");
+
   const movie = await Movie.findByIdAndDelete(req.params.id);
   if (!movie) {
     const error = new CustomError(`Movie with that ID is not found!`, 404);
+    console.log("called");
+
     return next(error);
   }
   res.status(204).json({
