@@ -15,6 +15,18 @@ const signToken = (id) => {
 exports.signup = asyncErrorHandler(async (req, res, next) => {
   const newUser = await User.create(req.body);
   const token = signToken(newUser._id);
+
+  const cookieOptions = {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.secure = true;
+  }
+
+  res.cookie("jwt", token, cookieOptions);
+
   res.status(201).json({
     status: "Success",
     token,
